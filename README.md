@@ -5,9 +5,14 @@
 - php -> /api/
 - mariadb -> mariadb
 - phpmyadmin -> localhost:8080
-- composer
 
 ## HowTo
+### Node version
+Se till att du har minst version 18.13 av nodejs.    
+Kontrollera i terminalen med 
+```bash
+node -v
+```
 
 ### SvelteKit
 SvelteKit-projekt skapas i katalogen **sveltekit**
