@@ -41,21 +41,15 @@ services:
     restart: always
     environment:
       PMA_HOST: mariadb
-      #PMA_ABSOLUTE_URI: http://localhost/pma/
     ports:
       - 8080:80
     depends_on:
       - mariadb
 
-  composer:
-    image: composer/composer:latest
-    command: install
-    volumes:
-      - ./composer:/composer
-
   node:
     image: node:latest
     container_name: node
+    restart: always
     working_dir: /sveltekit
     command: "npm run dev -- --host 0.0.0.0"
     volumes:
