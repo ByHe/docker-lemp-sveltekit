@@ -10,15 +10,15 @@
 ### Node version
 Se till att du har minst version 18.13 av nodejs.    
 Kontrollera i terminalen med 
-```bash
+```sh
 node -v
 ```
 
 ### SvelteKit
 SvelteKit-projekt skapas i katalogen **sveltekit**
-```console
+```sh
 cd sveltekit
-npm create svelte@latest .
+npx sv create
 npm i
 ```
 ### API med php
