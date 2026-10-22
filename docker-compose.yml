@@ -45,7 +45,7 @@ services:
       - app-network
 
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
+    image: phpmyadmin:latest
     container_name: pma
     restart: unless-stopped
     environment:
