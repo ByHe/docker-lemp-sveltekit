@@ -2,34 +2,41 @@ FROM php:8.5.12-fpm
 
 WORKDIR /var/www
 
+# Installera byggverktyg och systembibliotek
 RUN apt-get update && apt-get upgrade -y \
-    && apt-get install -y \
+    && apt-get install -y --no-install-recommends \
     g++ \
+    make \
+    pkg-config \
     libfreetype6-dev \
     libjpeg62-turbo-dev \
     libpng-dev \
     libzip-dev \
-    wget \
+    libicu-dev \
+    zip \
     unzip \
     zlib1g-dev \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-configure intl \
     && docker-php-ext-install -j$(nproc) \
     mysqli \
     pdo_mysql \
     sockets \
-    && docker-php-ext-configure gd --with-freetype --with-jpeg \
-    && docker-php-ext-install -j$(nproc) gd \
-    && docker-php-ext-configure zip \
-    && docker-php-ext-install zip \
+    gd \
+    zip \
+    intl \
+    opcache \
+    bcmath \
+    exif \
     && docker-php-source delete \
-    && apt-get remove -y g++ wget \
-    && apt-get autoremove --purge -y && apt-get autoclean -y && apt-get clean -y \
-    && rm -rf /var/lib/apt/lists/* \
-    && rm -rf /tmp/* /var/tmp/*
+    && apt-get purge -y --auto-remove g++ make pkg-config \
+    && apt-get clean -y \
+    && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 ARG UID=1000
 ARG GID=1000
 
-# Ändrat tillbaka till Debians kommandon
+# Skapa användare och grupp för Debian
 RUN groupadd -g ${GID} www \
  && useradd -u ${UID} -ms /bin/bash -g www www
 
